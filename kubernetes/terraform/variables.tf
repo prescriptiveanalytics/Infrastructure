@@ -3,6 +3,19 @@ variable "template_vm_id" {
  type = string
 }
 
+variable "number_of_control_planes" {
+ type = number
+}
+variable "number_of_large_workers" {
+ type = number
+}
+variable "number_of_medium_workers" {
+ type = number
+}
+variable "number_of_small_workers" {
+ type = number
+}
+
 #Define confidential variables for VM configuration
 variable "node_name" {
  type = string
