@@ -70,21 +70,19 @@ jobs:
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v2
       with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        terraform_version: 1.6.0
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@v2
-      with:
-        tf_actions_subcommand: 'init'
-        tf_actions_working_dir: 'kubernetes/terraform'
-        tf_actions_comment: true
+    - name: Terraform Init
+      uses: hashicorp/terraform-github-actions/init@master
+      env:
+        TF_ACTION_WORKING_DIR: 'kubernetes/terraform'
         
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: 'Terraform FMT check'
-      uses: hashicorp/terraform-github-actions@v2
+      uses: hashicorp/terraform-github-actions@master
       with:
         tf_actions_subcommand: 'fmt -check'
         tf_actions_working_dir: 'kubernetes/terraform'
@@ -92,7 +90,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: 'Terraform Plan'
-      uses: hashicorp/terraform-github-actions@v2
+      uses: hashicorp/terraform-github-actions@master
       with:
         tf_actions_subcommand: 'plan -input=false'
         tf_actions_working_dir: 'kubernetes/terraform'
@@ -102,7 +100,7 @@ jobs:
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      uses: hashicorp/terraform-github-actions@v2
+      uses: hashicorp/terraform-github-actions@master
       with:
         tf_actions_subcommand: 'apply -auto-approve -input=false'
         tf_actions_working_dir: 'kubernetes/terraform'
