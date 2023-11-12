@@ -14,3 +14,7 @@ provider "proxmox" {
   password = var.provider_password
   insecure = true
 }
+
+terraform {
+  backend "local" { path = "/home/spainfra/terraform_state/kubernetes_cluster/terraform.tfstate" }
+}
