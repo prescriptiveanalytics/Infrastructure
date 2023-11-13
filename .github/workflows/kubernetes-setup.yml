@@ -42,10 +42,11 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'Kubernetes Setup'
 
 on:
   push:
+    branches: [ "main" ]
   pull_request:
 
 permissions:
@@ -101,3 +102,43 @@ jobs:
     - name: Terraform Apply
       shell: bash
       run: terraform apply -auto-approve -input=false
+
+  inventory:
+    needs: terraform
+    name: 'Copy Inventory'
+    runs-on: self-hosted
+    environment: production
+    
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Copy Inventory File
+      run: cp -f /home/spainfra/terraform_state/kubernetes_cluster/inventory.ini ./kubernetes/kubespray/inventory/
+
+  kubespray:
+    needs: inventory
+    name: 'Kubespray'
+    runs-on: self-hosted
+    container: 
+        image: quay.io/kubespray/kubespray:v2.23.1
+        volumes:
+        - ./kubernetes/kubespray/inventory:/inventory
+        - /home/spainfra/.ssh/id_rsa:/root/.ssh/id_rsa
+        options: --user root
+    defaults:
+      run:
+        working-directory: /kubespray/
+    steps:
+    - name: Folder
+      run: pwd
+    - name: Deploy Kubernetes
+      run: ls
+    - name: Deploy Kubernetes
+      run: ls /inventory/
+    - name: Deploy Kubernetes
+      run: ls /kubespray/
+    - name: Deploy Kubernetes
+      run: whoami
+    - name: Deploy Kubernetes
+      run: ansible-playbook -i /inventory/inventory.ini --private-key /root/.ssh/id_rsa cluster.yml -become --become-user=root
