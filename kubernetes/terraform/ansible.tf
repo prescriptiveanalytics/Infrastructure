@@ -33,7 +33,7 @@ resource "local_file" "ansible_inventory" {
   [all:vars]
   ansible_python_interpreter=/usr/bin/python3
   ansible_ssh_extra_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-  ansible_ssh_private_key_file=~/.ssh/id_rsa
+  ansible_ssh_private_key_file=/root/.ssh/id_rsa
   ansible_user=${var.vm_username}
   EOF
 }
