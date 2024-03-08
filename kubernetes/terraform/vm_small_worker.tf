@@ -40,6 +40,7 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_small" {
   }
 
   initialization {
+    datastore_id = "dellsan"
     ip_config {
       ipv4 {
         address = "dhcp"
