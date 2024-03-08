@@ -36,7 +36,6 @@ resource "proxmox_virtual_environment_vm" "k8s_cp" {
   }
 
   clone {
-    datastore_id = "local-lvm"
     vm_id = var.template_vm_id
   }
 

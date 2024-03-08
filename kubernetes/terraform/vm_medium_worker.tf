@@ -11,7 +11,7 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_medium" {
   }
 
   memory {
-    dedicated = 4096
+    dedicated = 6144
   }
 
   agent {
@@ -36,7 +36,6 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_medium" {
   }
 
   clone {
-    datastore_id = "local-lvm"
     vm_id = var.template_vm_id
   }
 

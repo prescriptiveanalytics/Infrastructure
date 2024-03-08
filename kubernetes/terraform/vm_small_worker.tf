@@ -7,11 +7,11 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_small" {
   node_name   = var.node_name
 
   cpu {
-    cores = 2
+    cores = 4
   }
 
   memory {
-    dedicated = 2048
+    dedicated = 4096
   }
 
   agent {
@@ -36,7 +36,6 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_small" {
   }
 
   clone {
-    datastore_id = "local-lvm"
     vm_id = var.template_vm_id
   }
 
