@@ -14,9 +14,6 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_small" {
     dedicated = 4096
   }
 
-  agent {
-    enabled = true
-  }
 
   network_device {
     bridge = "vmbr0"
