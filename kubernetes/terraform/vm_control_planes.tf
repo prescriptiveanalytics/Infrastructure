@@ -24,7 +24,7 @@ resource "proxmox_virtual_environment_vm" "k8s_cp" {
   }
 
   disk {
-    datastore_id = "local-lvm"
+    datastore_id = "dellsan"
     interface    = "scsi0"
     size         = 50
   }
