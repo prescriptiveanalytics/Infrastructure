@@ -25,8 +25,11 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_large" {
 
   disk {
     datastore_id = "dellsan"
-    interface    = "scsi0"
-    size         = 15
+    file_id      = proxmox_virtual_environment_download_file.debian12_cloud_image.id
+    interface    = "virtio0"
+    iothread     = true
+    discard      = "on"
+    size         = 40
   }
 
   serial_device {} # The Debian cloud image expects a serial port to be present
@@ -35,12 +38,8 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_large" {
     type = "l26" # Linux Kernel 2.6 - 5.X.
   }
 
-  clone {
-    vm_id = var.template_vm_id
-  }
-
   initialization {
-    datastore_id = "dellsan"
+    datastore_id = "local-lvm"
     ip_config {
       ipv4 {
         address = "dhcp"
