@@ -1,8 +1,4 @@
 #Define variables for VM configuration
-variable "template_vm_id" {
- type = string
-}
-
 variable "number_of_control_planes" {
  type = number
 }

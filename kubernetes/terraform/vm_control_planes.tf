@@ -25,17 +25,11 @@ resource "proxmox_virtual_environment_vm" "k8s_cp" {
 
   disk {
     datastore_id = "dellsan"
-    file_id      = proxmox_virtual_environment_download_file.debian12_cloud_image.id
+    file_id      = "local:iso/CentOS-Stream-GenericCloud-8-latest.x86_64.img"
     interface    = "virtio0"
     iothread     = true
     discard      = "on"
     size         = 40
-  }
-
-  serial_device {} # The Debian cloud image expects a serial port to be present
-
-  operating_system {
-    type = "l26" # Linux Kernel 2.6 - 5.X.
   }
 
   initialization {
