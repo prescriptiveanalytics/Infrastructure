@@ -121,7 +121,7 @@ jobs:
     name: 'Kubespray'
     runs-on: self-hosted
     container: 
-        image: quay.io/kubespray/kubespray:v2.23.1
+        image: quay.io/kubespray/kubespray:v2.25.0
         volumes:
         - ./kubernetes/kubespray/inventory:/inventory
         - /home/spainfra/.ssh/id_rsa:/root/.ssh/id_rsa
