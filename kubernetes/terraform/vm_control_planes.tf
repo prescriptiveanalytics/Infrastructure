@@ -25,7 +25,7 @@ resource "proxmox_virtual_environment_vm" "k8s_cp" {
 
   disk {
     datastore_id = "dellsan"
-    file_id      = "local:iso/CentOS-Stream-GenericCloud-8-latest.x86_64.img"
+    file_id      = proxmox_virtual_environment_download_file.CentOS_cloud_image.id
     interface    = "virtio0"
     iothread     = true
     discard      = "on"
