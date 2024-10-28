@@ -1,1 +1,5 @@
 ﻿kubernetes/terraform/secrets_filled.txt
+kubernetes/terraform/.terraform
+kubernetes/terraform/.terraform.lock.hcl
+kubernetes/terraform/terraform.tfstate
+kubernetes/terraform/terraform.tfstate.backup

@@ -1,7 +1,7 @@
 resource "proxmox_virtual_environment_vm" "k8s_worker_medium" {
   count = var.number_of_medium_workers
 
-  name        = "k8s-worker-medium-${count.index}"
+  name        = "k8s-worker-medium-${count.index + 1}"
   description = "Managed by Terraform"
   tags        = ["terraform"]
   node_name   = var.node_name
@@ -23,12 +23,15 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_medium" {
     vlan_id = var.vlan_id
   }
 
+  clone {
+    vm_id = 109
+    retries = 10
+  }
+
   disk {
     datastore_id = "dellsan"
-    file_id      = proxmox_virtual_environment_download_file.CentOS_cloud_image.id
-    interface    = "virtio0"
-    iothread     = true
-    discard      = "on"
+    # file_id      = proxmox_virtual_environment_download_file.cloud_image.id
+    interface    = "ide0"
     size         = 40
   }
 

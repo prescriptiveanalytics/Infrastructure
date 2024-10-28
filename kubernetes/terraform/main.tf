@@ -3,7 +3,7 @@ terraform {
   required_providers {
     proxmox = {
       source = "bpg/proxmox"
-      version = "0.59.1"
+      version = "0.66.3"
     }
   }
 }
@@ -15,6 +15,6 @@ provider "proxmox" {
   insecure = true
 }
 
-terraform {
-  backend "local" { path = "/home/spainfra/terraform_state/kubernetes_cluster/terraform.tfstate" }
-}
+# terraform {
+#   backend "local" { path = "/home/spainfra/terraform_state/kubernetes_cluster/terraform.tfstate" }
+# }
