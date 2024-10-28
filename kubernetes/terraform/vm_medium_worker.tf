@@ -23,14 +23,15 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_medium" {
     vlan_id = var.vlan_id
   }
 
-  clone {
-    vm_id = 109
-    retries = 10
-  }
+
+  # clone {
+  #   vm_id = 100
+  #   retries = 10
+  # }
 
   disk {
     datastore_id = "dellsan"
-    # file_id      = proxmox_virtual_environment_download_file.cloud_image.id
+    file_id      = proxmox_virtual_environment_download_file.cloud_image.id
     interface    = "ide0"
     size         = 40
   }
