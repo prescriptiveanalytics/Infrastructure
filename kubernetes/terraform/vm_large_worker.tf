@@ -6,8 +6,11 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_large" {
   tags        = ["terraform"]
   node_name   = var.node_name
 
+  vm_id = 1200 + count.index + 1
+
   cpu {
     cores = 8
+    type = "host"
   }
 
   memory {
