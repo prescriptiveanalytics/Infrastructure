@@ -117,7 +117,8 @@ jobs:
   #     run: cp -f /home/spainfra/terraform_state/kubernetes_cluster/inventory/inventory.ini ./kubernetes/kubespray/inventory/
 
   kubespray:
-    needs: inventory
+    # needs: inventory # switch this with next line if copy of file is again necessary
+    needs: terraform
     name: 'Kubespray'
     runs-on: self-hosted
     container: 
