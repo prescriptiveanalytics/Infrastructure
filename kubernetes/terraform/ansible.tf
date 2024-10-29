@@ -1,5 +1,5 @@
 resource "local_file" "ansible_inventory" {
-  filename = "/home/spainfra/terraform_state/kubernetes_cluster/inventory.ini"
+  filename = "/home/spainfra/terraform_state/kubernetes_cluster/inventory/inventory.ini"
   content     = <<-EOF
   %{ for controlplane in proxmox_virtual_environment_vm.k8s_cp[*] }
   ${controlplane.name} ansible_host=${controlplane.ipv4_addresses[1][0]} ansible_become=true

@@ -103,18 +103,18 @@ jobs:
       shell: bash
       run: terraform apply -auto-approve -input=false
 
-  inventory:
-    needs: terraform
-    name: 'Copy Inventory'
-    runs-on: self-hosted
-    environment: production
+  # inventory:
+  #   needs: terraform
+  #   name: 'Copy Inventory'
+  #   runs-on: self-hosted
+  #   environment: production
     
-    defaults:
-      run:
-        shell: bash
-    steps:
-    - name: Copy Inventory File
-      run: cp -f /home/spainfra/terraform_state/kubernetes_cluster/inventory.ini ./kubernetes/kubespray/inventory/
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #   - name: Copy Inventory File
+  #     run: cp -f /home/spainfra/terraform_state/kubernetes_cluster/inventory/inventory.ini ./kubernetes/kubespray/inventory/
 
   kubespray:
     needs: inventory
@@ -123,7 +123,7 @@ jobs:
     container: 
         image: quay.io/kubespray/kubespray:v2.25.0
         volumes:
-        - ./kubernetes/kubespray/inventory:/inventory
+        - /home/spainfra/terraform_state/kubernetes_cluster/inventory:/inventory
         - /home/spainfra/.ssh/id_rsa:/root/.ssh/id_rsa
         options: --user root
     defaults:
