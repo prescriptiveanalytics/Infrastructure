@@ -59,7 +59,6 @@ jobs:
     environment: production
 
     env:
-        TF_VAR_template_vm_id: ${{ secrets.TF_VAR_template_vm_id }}
         TF_VAR_number_of_control_planes: ${{ secrets.TF_VAR_number_of_control_planes }}
         TF_VAR_number_of_large_workers: ${{ secrets.TF_VAR_number_of_large_workers }}
         TF_VAR_number_of_medium_workers: ${{ secrets.TF_VAR_number_of_medium_workers }}
@@ -91,6 +90,12 @@ jobs:
     - name: Terraform Init
       shell: bash
       run: terraform init
+
+    # Removes old instances
+    - name: Terraform Destroy
+      shell: bash
+      run: terraform destroy -input=false
+    
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
