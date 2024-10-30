@@ -94,7 +94,7 @@ jobs:
     # Removes old instances
     - name: Terraform Destroy
       shell: bash
-      run: terraform destroy -input=false
+      run: terraform destroy -auto-approve -input=false
     
 
     # Generates an execution plan for Terraform
